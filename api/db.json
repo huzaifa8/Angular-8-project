@@ -1,0 +1,8 @@
+{
+    "login_info": [{
+        "id": 1,
+        "name": "huzaifa",
+        "token": "sample-token",
+        "status": "okay"
+    }]
+}
