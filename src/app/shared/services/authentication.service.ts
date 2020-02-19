@@ -28,7 +28,7 @@ export class AuthenticationService {
       console.log(response);
       
       if (response[0].status == 'okay') {
-        console.log("Cookie okay");
+        console.log("Cookie is not okay");
         localStorage.setItem('token', response[0].token);
        }
     }
