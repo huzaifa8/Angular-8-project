@@ -1,0 +1,16 @@
+<h1>Sign Up</h1>
+<div>
+    <form (submit)="reguser()">
+        <label for="firstName">First Name: </label>
+        <input type="string" id="FirstName" [(ngModel)]="inputUReg.firstName" name="firstName"><br><br>
+        <label for="firstName">Last Name: </label>
+        <input type="string" id="LastName" [(ngModel)]="inputUReg.lastName" name="lastName"><br><br>
+        <label for="email">Email: </label>
+        <input type="email" id="email" [(ngModel)]="inputUReg.email" name="email"><br><br>
+        <label for="password">Password: </label>
+        <input type="string" id="password" [(ngModel)]="inputUReg.password" name="password"><br><br>
+        <label for="datOfBirth">Date of Birth: </label>
+        <input type="date" id="dateofBirth" [(ngModel)]="inputUReg.dateOfbirth" name="dateOfBirth"><br><br>
+        <input type="submit">
+    </form>
+</div>

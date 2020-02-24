@@ -1,14 +1,14 @@
 import { AuthenticationService, LoginPayload } from './../shared/services/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   
   input: LoginPayload = {
     password: '',
@@ -24,10 +24,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.input.password === '123') {
-      this.authService.authenticateUser(this.input)
-    } else {
-      console.log('invalid credentials');
-    }
+      this.authService.authenticateUser(this.input);
+    // if (this.input.password === '123') {
+    //   this.authService.authenticateUser(this.input);
+    //   console.log(this.input.password);
+      
+    // } else {
+    //   console.log('invalid credentials');
+    // }
   }
+  
+  
 }
