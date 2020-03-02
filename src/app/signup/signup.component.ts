@@ -26,7 +26,6 @@ inputUReg: SignUpPayload = {
   }
 
   reguser(){
-  
-    
+  this.userdata.registerUser(this.inputUReg);
   }
 }

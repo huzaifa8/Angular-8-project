@@ -1,46 +1,74 @@
-import { RegistrationService, SignUpPayload } from './registration.service';
-import { CacheService } from './../../cache/cache.service';
 import { AuthApiService } from './api/auth-api.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 
 export interface LoginPayload { 
-  username: string;
+  email: string;
   password: string; 
 }
 
 export interface AuthResponse {
 }
+
+export interface CanActivate{
+status: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthenticationService{
 
   constructor(
     private http: HttpClient,
-    private authApi: AuthApiService,
-    private cahce: CacheService,
-    private userData:RegistrationService
+    private authApi: AuthApiService
   ) { }
 
-  authenticateUser(payload?: LoginPayload, userPayload?: SignUpPayload){
-    if (payload.username === userPayload.username && payload.password === userPayload.password){
-       alert("Success")
+  
+  authenticateUser(payload: LoginPayload, activate: CanActivate) {
+    const promise = new Promise((resolve, reject) => {
+      const headers = new HttpHeaders().set("Content-Type", "application/json");
+    const body = {
+      "email":"" + payload.email,
+	    "password":"" + payload.password
     }
+    this.http.post(this.authApi.mock_api , body, { headers: headers }).toPromise().then((response: any) => {
+      if (response !== ''){
+        localStorage.setItem('token', "" + response.token);
+        activate.status = true;
+      }
+    
+
+    }).catch((response: any) => {
+      console.log(response);
+      activate.status = false;
+    });
+    }); 
+    }
+    // canActivate(){
+    //  var a = localStorage.getItem('token');
+    //   console.log(a);
+    // }
   }
 
-  // authenticateUser(payload: LoginPayload) {
-  //   this.authApi.authenticate(payload).subscribe((response: AuthResponse) => {
-  //     console.log(response[0].name);
-  //     console.log(response);
-      
-  //     if (response[0].status == 'okay') {
-  //       console.log("Cookie okay");
-  //       localStorage.setItem('token', response[0].token);
-  //      }
+  // const headers = new HttpHeaders().set("Content-Type", "application/json");
+  //   const body = {
+  //     "email":"" + payload.email,
+	//     "password":"" + payload.password
   //   }
-  //   );
-  // }
+  //   this.http.post(this.authApi.mock_api , body, { headers: headers }).subscribe((response: AuthResponse) =>{
+  //   if (response !== '') {
+  //     console.log(response);
+  //       localStorage.setItem('token', "" + response);
+  //      }
+  //   });
+      
+      
 
-}
+
+  
+
+ 
+
+

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
   { path: '',
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
   },
   { path: 'home', component:  HomeComponent},
   { path: 'login', component:  LoginComponent},
-  { path: 'signup', component:  SignupComponent}
+  { path: 'signup', component:  SignupComponent},
+  { path: 'profile', component: ProfileComponent, canActivate:[LoginComponent]}
 ]
 
 
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
