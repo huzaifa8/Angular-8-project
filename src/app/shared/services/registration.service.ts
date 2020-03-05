@@ -24,7 +24,7 @@ let lastName = lastNameF1(userData);
 let email = emailF1(userData);
 let password = passwordF1(userData);
 let dateOfBirth = dobF1(userData);
-if (firstName === true && lastName === true && email === true && password === true && dateOfBirth === true){
+if (firstName && lastName && email && password && dateOfBirth){
 const promise = new Promise((resolve,reject) => {
   const headers = new HttpHeaders().set("Content-Type", "application/json");
   const body = {

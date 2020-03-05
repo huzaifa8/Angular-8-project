@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 
+
 const appRoutes: Routes = [
   { path: '',
     redirectTo: 'app',
@@ -17,8 +18,7 @@ const appRoutes: Routes = [
   },
   { path: 'home', component:  HomeComponent},
   { path: 'login', component:  LoginComponent},
-  { path: 'signup', component:  SignupComponent},
-  { path: 'profile', component: ProfileComponent, canActivate:[LoginComponent]}
+  { path: 'signup', component:  SignupComponent}
 ]
 
 
