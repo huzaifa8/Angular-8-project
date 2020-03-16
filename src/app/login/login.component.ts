@@ -1,4 +1,5 @@
-
+import { Router } from '@angular/router';
+import { AuthguardService } from './../shared/services/authguard.service';
 import { AuthenticationService, LoginPayload } from './../shared/services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,7 @@ import { NgModule } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent{
   
 
   
@@ -23,21 +24,22 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthenticationService,
+    private authGuardService: AuthguardService,
+    private router: Router,
   ) { 
     
   }
 
   ngOnInit() {
     localStorage.clear();
-    console.log(this.authService.getToken());
   }
 
   login() {
     if(this.input.email !== "" && this.input.password !== "" ){
       this.authService.authenticateUser(this.input).subscribe((response: any) => {  
-        console.log(response);
-        if (response.token) { 
-          localStorage.setItem('token', response['token']);
+        if (response) { 
+          console.log(response.token);
+          localStorage.setItem('token', response.token);
         }
         
       }, error => {
@@ -48,10 +50,20 @@ export class LoginComponent {
     }
 
     setTimeout(() => {
-      console.log(this.authService.getToken());
+      this.authService.isAuthenticated();
+      
+      if(this.authGuardService.canActivate()){
+        this.router.navigate(['profile']);
+        this.authService.userProfile().subscribe((response: any) => {
+          console.log(response);
+        })
+      }
+      
     }, 2000);
   }
+
+  
 }
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTVkNDFjMmEyYzkzZDAwMzQ4YTY1ODYiLCJmaXJzdF9uYW1lIjoiaHV6YWlmYSIsImxhc3RfbmFtZSI6ImphdmFpZCIsInBhc3N3b3JkIjoiJDJhJDEwJDNPcHdMUHVoM1V2UUtZNXkuNlFYMS5Uek9CSVRObGlkdk1kdE1QWkk5YjJ1eWFwLmgxNUF5IiwiZW1haWwiOiJodXphaWZhQGdtYWlsLmNvbSIsImlhdCI6MTU4MzE2OTk4Nn0.AzAqULwkRpBzfl4wt10CWDgjuGwDDzUA_3HNptaL0v8"
+
    
   
